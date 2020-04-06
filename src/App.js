@@ -1,24 +1,49 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+import { useSelector, useDispatch } from 'react-redux'
+import Box from './componenets/Box';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Button} from 'react-bootstrap'
 
 function App() {
+  //bring in count number object
+  let countNum = useSelector(state=>state.countNum);
+  //bring in boxList Array
+  let boxList = useSelector(state=>state.boxList);
+
+  //dispatch will send the data to reducer in index.js
+  let dispatch = useDispatch();
+
+  let incrementNumber = () => {
+    dispatch({type:'INCREMENT', payload:{id:countNum, color:"black"}})
+  }
+  let decrementNumber = ()=> {
+    dispatch ({type: 'DECREMENT'})
+  }
+  let reset = () => {
+    dispatch({ type: 'RESET'})
+  }
+  let BoxList = () => {
+    return boxList.map((item) => <Box/>)
+}
+
+
+
+ 
+
+
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="appArea">
+      <h2>Boxes: {countNum}</h2>
+
+      
+      <Button variant="success" onClick={() => incrementNumber()}>Increment</Button>
+      <Button variant="warning" onClick={() => decrementNumber()}>Decrement</Button>
+      <Button variant="danger" onClick={() => reset()}>Reset</Button>
+      <input type="text" placeholder="Color"></input>
+      
+      <BoxList/>
     </div>
   );
 }
