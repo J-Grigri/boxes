@@ -15,7 +15,7 @@ function App() {
   let dispatch = useDispatch();
 
   let incrementNumber = () => {
-    dispatch({type:'INCREMENT', payload:{id:countNum, color:"black"}})
+    dispatch({type:'INCREMENT', payload:{id:countNum,}})
   }
   let decrementNumber = ()=> {
     dispatch ({type: 'DECREMENT'})
@@ -23,28 +23,33 @@ function App() {
   let reset = () => {
     dispatch({ type: 'RESET'})
   }
-  let BoxList = () => {
-    return boxList.map((item) => <Box/>)
+  
+
+let renderBox = () => {
+  console.log("boxList", boxList)
+  return boxList && boxList.map((item, index) => <Box id={index} />)
 }
-
-
-
+let backgroundChange = (color) => {
+  dispatch ({type: 'BACKGROUNDCOLOR', payload:color})
+}
  
 
 
 
   return (
-    <div id="appArea">
-      <h2>Boxes: {countNum}</h2>
+    <div style={{ display: "flex", justifyContent:"center",}} >
+      <div style={{ display: "flex", flexDirection:"column" }}>
 
-      
-      <Button variant="success" onClick={() => incrementNumber()}>Increment</Button>
+      <h3 style={{ textAlign: "center"}}>Boxes: {countNum}</h3>
+      <Button  variant="success" onClick={() => incrementNumber()}>Increment</Button>
       <Button variant="warning" onClick={() => decrementNumber()}>Decrement</Button>
       <Button variant="danger" onClick={() => reset()}>Reset</Button>
-      <input type="text" placeholder="Color"></input>
-      
-      <BoxList/>
+      <input style={{border:"1px solid grey", borderRadius:"5px", textAlign:"center", backgroundColor:"lightgrey"}} onChange = {e=>backgroundChange(e.target.value)} type="text" placeholder="Color"></input>
+      {renderBox()}
+
+      </div>
     </div>
+   
   );
 }
 

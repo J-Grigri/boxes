@@ -39,14 +39,8 @@
 
 #appArea {
   display:flex;
+  justify-content: center;
   flex-direction: column;
   width:20%;
 }
-#Box {
-  display:flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  border:1px solid grey;
-  background-color: beige;
-}
+
